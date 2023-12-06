@@ -28,9 +28,6 @@ jobs:
       run: ./gradlew build
 
     - name: Build the Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         docker build . \
           --file Dockerfile \
@@ -38,9 +35,14 @@ jobs:
           --build-arg JAR_FILE=build/libs/your-application.jar
 
     - name: Log in to Docker Hub
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Push the Docker image to Docker Hub
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
         docker buildx create --use
         docker buildx build --tag $DOCKER_USERNAME/invoice_builder-0.0.1:latest --push .
