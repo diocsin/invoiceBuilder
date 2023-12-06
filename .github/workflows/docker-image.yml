@@ -1,0 +1,38 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    - name: Build the application
+      run: ./gradlew build
+
+    - name: Build the Docker image
+      run: |
+        docker build . \
+          --file Dockerfile \
+          --tag your-image-name:$(date +%s) \
+          --build-arg JAR_FILE=build/libs/your-application.jar
+
+    - name: Push the Docker image to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        docker push your-image-name:$(date +%s)
+
