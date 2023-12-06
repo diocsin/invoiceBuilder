@@ -31,18 +31,16 @@ jobs:
       run: |
         docker build . \
           --file Dockerfile \
-          --tag your-image-name:$(date +%s) \
-          --build-arg JAR_FILE=build/libs/your-application.jar
+          --tag InvoiceBuilder-0.0.1-SNAPSHOT:$(date +%s) \
+          --build-arg JAR_FILE=build/libs/InvoiceBuilder-0.0.1-SNAPSHOT.jar
 
     - name: Log in to Docker Hub
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push the Docker image to Docker Hub
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         docker buildx create --use
         docker buildx build --tag $DOCKER_USERNAME/invoice_builder-0.0.1:latest --push .
