@@ -37,7 +37,10 @@ jobs:
           --tag your-image-name:$(date +%s) \
           --build-arg JAR_FILE=build/libs/your-application.jar
 
+    - name: Log in to Docker Hub
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
     - name: Push the Docker image to Docker Hub
       run: |
-        echo $DOCKER_USERNAME | docker login -u $DOCKER_PASSWORD --password-stdin
-        docker push invoice_builder-0.0.1:$(date +%s)
+        docker buildx create --use
+        docker buildx build --tag $DOCKER_USERNAME/invoice_builder-0.0.1:latest --push .
