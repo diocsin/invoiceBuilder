@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -46,7 +48,13 @@ public class InvoiceController {
             byte[] pdfContent = jasperReportService.generatePDFReport(invoice);
             log.info("Received request to build invoice: {}", invoice);
             headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("inline", "invoice.pdf");
+
+            // Форматируйте текущую дату в строку "dd-MM-yyyy"
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String formattedDate = dateFormat.format(new Date());
+            String fileName = "invoice_" + formattedDate + ".pdf";
+
+            headers.setContentDispositionFormData("inline", fileName);
             return new ResponseEntity<>(pdfContent, headers, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());

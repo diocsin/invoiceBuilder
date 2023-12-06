@@ -368,7 +368,9 @@
                             <textField>
                                 <reportElement x="0" y="0" width="234" height="20"
                                                uuid="7031aeb5-298a-460e-8802-15d11b2d9fad"/>
-                                <textElement textAlignment="Left"/>
+                                <textElement textAlignment="Left">
+                                    <paragraph leftIndent="3"/>
+                                </textElement>
                                 <textFieldExpression><![CDATA[$F{nameOfGoodsOrService}]]></textFieldExpression>
                             </textField>
                         </jr:detailCell>
@@ -742,7 +744,7 @@ $P{accountNumber}]]></textFieldExpression>
                     <![CDATA["Total due " + new java.text.DecimalFormat("#,##0.00").format($P{totalNetPrice}) +" "+ $P{currency}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="304" y="95" width="250" height="15" uuid="e651eb71-8d60-4094-b126-8cba234006c7">
+                <reportElement x="304" y="95" width="250" height="35" uuid="e651eb71-8d60-4094-b126-8cba234006c7">
                     <property name="com.jaspersoft.studio.unit.height" value="px"/>
                 </reportElement>
                 <box>
@@ -755,25 +757,17 @@ $P{accountNumber}]]></textFieldExpression>
 $P{currency}]]></textFieldExpression>
             </textField>
             <line>
-                <reportElement x="0" y="140" width="554" height="1" uuid="ab07cba5-e28f-4ace-9ff4-76e1bf872f72"/>
+                <reportElement x="0" y="130" width="554" height="1" uuid="ab07cba5-e28f-4ace-9ff4-76e1bf872f72"/>
                 <graphicElement>
                     <pen lineWidth="0.5"/>
                 </graphicElement>
             </line>
             <staticText>
-                <reportElement x="0" y="140" width="100" height="18" forecolor="#FF0703"
-                               uuid="54c3044a-5623-430e-906f-13f261d4f9ae"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Important:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="0" y="160" width="100" height="30" uuid="3c43908f-81bb-4881-b945-8b097d577509"/>
+                <reportElement x="0" y="140" width="100" height="30" uuid="3c43908f-81bb-4881-b945-8b097d577509"/>
                 <text><![CDATA[VAT account number :]]></text>
             </staticText>
             <textField>
-                <reportElement x="100" y="160" width="116" height="30" uuid="f68554e2-d495-4546-80c3-16e6aee59a53"/>
+                <reportElement x="100" y="140" width="116" height="30" uuid="f68554e2-d495-4546-80c3-16e6aee59a53"/>
                 <textFieldExpression><![CDATA[$P{vatAccountNumber}]]></textFieldExpression>
             </textField>
             <staticText>
