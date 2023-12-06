@@ -31,7 +31,7 @@ jobs:
       run: |
         docker build . \
           --file Dockerfile \
-          --tag InvoiceBuilder-0.0.1-SNAPSHOT:$(date +%s) \
+          --tag invoice_builder-0.0.1:$(date +%s) \
           --build-arg JAR_FILE=build/libs/InvoiceBuilder-0.0.1-SNAPSHOT.jar
 
     - name: Log in to Docker Hub
